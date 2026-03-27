@@ -107,7 +107,7 @@ nav {
   left: 0;
   right: 0;
   z-index: 100;
-  padding: 16px 5%;
+  padding: 16px clamp(20px, 5%, 60px);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -160,8 +160,10 @@ nav {
   min-height: 100vh;
   display: flex;
   align-items: center;
-  padding: 100px 5% 60px;
+  padding: 100px clamp(20px, 5%, 60px) 60px;
   gap: 5%;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 .hero-text {
   flex: 1;
@@ -304,7 +306,21 @@ h1 .line2 { color: var(--accent); text-shadow: 0 0 30px rgba(245,197,24,.5); }
 section {
   position: relative;
   z-index: 1;
-  padding: 90px 5%;
+  padding: clamp(60px, 8vw, 100px) clamp(20px, 5%, 40px);
+}
+/* Global content width cap — prevents lines stretching too wide on large screens */
+section > *,
+section > .reveal,
+section > .includes-grid,
+section > .ages-inner,
+section > .about-inner,
+section > .contact-wrap,
+section > .testimonials-grid,
+section > .faq-list,
+section > .pricing-card {
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
 }
 /* Small coloured label above section titles */
 .section-tag {
@@ -415,9 +431,18 @@ section {
 /* ── PRICING SECTION ────────────────────────────────────────── */
 .pricing { background: var(--bg2); }
 
+/* Two-column layout: card on left, trust signals on right */
+.pricing-inner {
+  display: flex;
+  gap: 48px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 52px;
+}
 .pricing-card {
-  max-width: 480px;
-  margin: 52px auto 0;
+  flex: 1;
+  min-width: 300px;
+  max-width: 520px;
   background: var(--card);
   border-radius: 24px;
   padding: 44px 40px;
@@ -425,6 +450,36 @@ section {
   box-shadow: 0 0 60px rgba(245,197,24,.08);
   text-align: center;
   position: relative;
+}
+/* Trust signals column */
+.pricing-trust {
+  flex: 1;
+  min-width: 260px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.trust-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+.trust-icon {
+  font-size: 1.8rem;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.trust-item h4 {
+  font-weight: 800;
+  font-size: .97rem;
+  color: #fff;
+  margin-bottom: 4px;
+}
+.trust-item p {
+  color: var(--text);
+  font-size: .88rem;
+  line-height: 1.6;
+  font-weight: 600;
 }
 /* "Más popular" badge */
 .pricing-badge {
@@ -953,6 +1008,18 @@ footer p {
   cursor: pointer;
 }
 
+/* ── RESPONSIVE — TABLET (max 1024px) ──────────────────────── */
+@media (max-width: 1024px) {
+  .hero { gap: 3%; }
+  .hero-text { max-width: 480px; }
+  .hero-img { max-width: 360px; }
+
+  .ages-inner { gap: 36px; }
+  .about-inner { gap: 36px; }
+
+  .pricing-inner { gap: 32px; }
+}
+
 /* ── RESPONSIVE — MOBILE (max 768px) ───────────────────────── */
 @media (max-width: 768px) {
   nav { padding: 12px 4%; }
@@ -972,6 +1039,7 @@ footer p {
   .about-photo { text-align: center; }
 
   .includes-grid { grid-template-columns: 1fr; } /* stack cards on mobile */
+  .pricing-inner { flex-direction: column; }
   .form-row { grid-template-columns: 1fr; }
   .ages-inner { flex-direction: column; }
 }
@@ -1093,22 +1161,54 @@ footer p {
     <h2 class="section-title">Simple y sin sorpresas</h2>
     <p class="section-desc">Un único plan mensual que incluye todo lo que necesita tu hijo/a para aprender tecnología de verdad.</p>
   </div>
-  <div class="pricing-card reveal">
-    <div class="pricing-badge">Más popular</div>
-    <div class="pricing-price">
-      <span class="pricing-amount">70€</span>
-      <span class="pricing-period">/ mes · por niño</span>
+  <div class="pricing-inner">
+    <div class="pricing-card reveal">
+      <div class="pricing-badge">Más popular</div>
+      <div class="pricing-price">
+        <span class="pricing-amount">70€</span>
+        <span class="pricing-period">/ mes · por niño</span>
+      </div>
+      <ul class="pricing-list">
+        <li>✅ Cuenta Minecraft Education Edition (1 mes)</li>
+        <li>✅ 4 clases de programación por bloques</li>
+        <li>✅ 1 clase de Project Maker (robótica)</li>
+        <li>✅ Soporte online continuo</li>
+        <li>✅ Grupos reducidos</li>
+        <li>✅ Presencial en Barcelona o a domicilio</li>
+      </ul>
+      <a href="https://wa.me/34602887813" class="btn-primary" target="_blank" style="display:inline-block;margin-top:28px">💬 Reservar plaza por WhatsApp</a>
+      <p class="pricing-note">Sin permanencia · Cancela cuando quieras</p>
     </div>
-    <ul class="pricing-list">
-      <li>✅ Cuenta Minecraft Education Edition (1 mes)</li>
-      <li>✅ 4 clases de programación por bloques</li>
-      <li>✅ 1 clase de Project Maker (robótica)</li>
-      <li>✅ Soporte online continuo</li>
-      <li>✅ Grupos reducidos</li>
-      <li>✅ Presencial en Barcelona o a domicilio</li>
-    </ul>
-    <a href="https://wa.me/34602887813" class="btn-primary" target="_blank" style="display:inline-block;margin-top:28px">💬 Reservar plaza por WhatsApp</a>
-    <p class="pricing-note">Sin permanencia · Cancela cuando quieras</p>
+    <div class="pricing-trust reveal">
+      <div class="trust-item">
+        <span class="trust-icon">👨‍👩‍👧</span>
+        <div>
+          <h4>Para toda la familia</h4>
+          <p>Un precio por niño. Hermanos con descuento — pregúntame por WhatsApp.</p>
+        </div>
+      </div>
+      <div class="trust-item">
+        <span class="trust-icon">📍</span>
+        <div>
+          <h4>En Barcelona o a domicilio</h4>
+          <p>Las clases se adaptan a tu zona. Sin desplazamientos para los padres.</p>
+        </div>
+      </div>
+      <div class="trust-item">
+        <span class="trust-icon">🔓</span>
+        <div>
+          <h4>Sin permanencia</h4>
+          <p>Mes a mes. Cancela cuando quieras sin ninguna penalización.</p>
+        </div>
+      </div>
+      <div class="trust-item">
+        <span class="trust-icon">🎒</span>
+        <div>
+          <h4>Todo incluido</h4>
+          <p>Minecraft Education, material de robótica y soporte. No hace falta comprar nada.</p>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
