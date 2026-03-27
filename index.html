@@ -341,7 +341,7 @@ section {
 
 .includes-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(2, 1fr); /* always 2x2 — no orphaned cards */
   gap: 24px;
   margin-top: 52px;
 }
@@ -355,6 +355,8 @@ section {
   transition: all .3s;
   position: relative;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 .card::before {
   content: '';
@@ -368,10 +370,17 @@ section {
   border-color: rgba(245,197,24,.3);
   box-shadow: 0 20px 50px rgba(0,0,0,.4);
 }
+/* Icon + badge row at the top of each card */
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
 .card-icon {
   font-size: 2.8rem;
-  margin-bottom: 18px;
   display: block;
+  line-height: 1;
 }
 .card h3 {
   font-family: 'Orbitron', monospace;
@@ -386,12 +395,10 @@ section {
   font-size: .95rem;
   line-height: 1.6;
   font-weight: 600;
+  flex: 1; /* pushes badge to bottom if needed */
 }
-/* Small badge in top-right of card (e.g. "4 clases") */
+/* Badge now inside .card-header instead of absolute positioned */
 .card-badge {
-  position: absolute;
-  top: 20px;
-  right: 20px;
   background: rgba(57,255,20,.12);
   border: 1px solid rgba(57,255,20,.3);
   color: var(--green);
@@ -400,6 +407,7 @@ section {
   padding: 4px 10px;
   border-radius: 50px;
   letter-spacing: .5px;
+  white-space: nowrap;
 }
 
 
@@ -963,6 +971,7 @@ footer p {
   .about-inner { flex-direction: column; align-items: center; }
   .about-photo { text-align: center; }
 
+  .includes-grid { grid-template-columns: 1fr; } /* stack cards on mobile */
   .form-row { grid-template-columns: 1fr; }
   .ages-inner { flex-direction: column; }
 }
@@ -1040,26 +1049,34 @@ footer p {
   </div>
   <div class="includes-grid">
     <div class="card reveal">
-      <span class="card-icon">⛏️</span>
-      <span class="card-badge">1 mes</span>
+      <div class="card-header">
+        <span class="card-icon">⛏️</span>
+        <span class="card-badge">1 mes</span>
+      </div>
       <h3>Cuenta Minecraft Education Edition</h3>
       <p>Acceso educativo completo durante el mes. Aprenden lógica y programación dentro de un entorno que ya conocen y adoran.</p>
     </div>
     <div class="card reveal">
-      <span class="card-icon">🧩</span>
-      <span class="card-badge">4 clases</span>
+      <div class="card-header">
+        <span class="card-icon">🧩</span>
+        <span class="card-badge">4 clases</span>
+      </div>
       <h3>Clases de programación por bloques</h3>
       <p>Aprendizaje progresivo enfocado en lógica, pensamiento computacional y creatividad. Sin código complejo — solo bloques visuales.</p>
     </div>
     <div class="card reveal">
-      <span class="card-icon">🤖</span>
-      <span class="card-badge">1 clase</span>
+      <div class="card-header">
+        <span class="card-icon">🤖</span>
+        <span class="card-badge">1 clase</span>
+      </div>
       <h3>Clase de Project Maker</h3>
       <p>Introducción práctica a la robótica con la creación de su primer proyecto real. ¡Diseñan y construyen con sus propias manos!</p>
     </div>
     <div class="card reveal">
-      <span class="card-icon">💬</span>
-      <span class="card-badge">Siempre</span>
+      <div class="card-header">
+        <span class="card-icon">💬</span>
+        <span class="card-badge">Siempre</span>
+      </div>
       <h3>Soporte online continuo</h3>
       <p>Acompañamiento para la resolución de dudas y apoyo técnico durante todo el programa. Siempre hay alguien disponible.</p>
     </div>
